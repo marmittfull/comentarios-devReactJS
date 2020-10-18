@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Comments from './Comments';
+import NewComment from './NewComment';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+ class App extends Component {
+  
+    state = {
+      comentarios:[
+        'comentario1',
+        'comentario2',
+        'comentario3',
+        'comentario4',
+      ]
+    }
+
+    adicionarComentario = (comentario) => {
+      this.setState({comentarios:[...this.state.comentarios, comentario]})
+    }
+
+  render(){
+    return (
+      <div>
+        {/* New Comments */}
+        <NewComment adicionarComentario={this.adicionarComentario} />
+        {/* Comments */}
+        <Comments comentarios={this.state.comentarios} />
+      </div>
+    );
+  }
 }
 
 export default App;
