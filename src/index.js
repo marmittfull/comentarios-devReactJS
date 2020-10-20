@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { database } from './Firebase'; 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App database={database}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

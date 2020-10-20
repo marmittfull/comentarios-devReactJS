@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Comments from './Comments';
 import NewComment from './NewComment';
-import { database } from './Firebase'; 
 
  class App extends Component {
   
@@ -11,6 +10,7 @@ import { database } from './Firebase';
     }
 
     adicionarComentario = (texto) => {
+      const { database } = this.props
       const id = database.ref().child('comentarios').push().key;
       const comentario = {}
       comentario['comentarios/'+id] = {texto}
@@ -19,6 +19,7 @@ import { database } from './Firebase';
     }
 
     componentDidMount = () => {
+      const { database } = this.props
       this.setState({isLoading: true});
       this.comentarios = database.ref('comentarios');
       this.comentarios.on('value', snapshot=>{
