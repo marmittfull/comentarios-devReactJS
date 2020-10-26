@@ -10,10 +10,13 @@ const Comment = ({ c }) => {
       email = c.email
   }
   return (
-    <div>
-      <h4>Comentário: {comentario}</h4>
-      <h5>Escrito por: {email}</h5>
-      <hr/>
+    <div className="card mb-3">
+      <div className="card-body">
+      <h5>{comentario}</h5>
+      </div>
+      <div className="card-footer">
+      <span className="text-muted">{email}</span>
+      </div>
     </div>
   )
 }

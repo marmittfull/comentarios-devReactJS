@@ -17,13 +17,15 @@ class NewComment extends Component {
   }
   render() {
     return (
-      <div>
-        <textarea value={this.state.novoComentario} onChange={this.handleChange} >
-
-        </textarea>
-        <button onClick={this.adicionarComentario}>
+      <div className="mt-3">
+        <div>
+        <textarea cols="50" rows="4"  value={this.state.novoComentario} onChange={this.handleChange} />
+        </div>
+        <div>
+        <button className="btn btn-primary" onClick={this.adicionarComentario}>
           Click aqui
         </button>
+        </div>
       </div>
     )
   }
