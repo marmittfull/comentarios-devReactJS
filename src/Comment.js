@@ -1,11 +1,20 @@
 import React from 'react'
 
 const Comment = ({ c }) => {
-    let comentario = 'vazio'
-  if(c && c.texto)
-    comentario = c.texto
+  let comentario = 'Gostei'
+  let email = 'anônimo'
+  if (c) {
+    if (c.texto)
+      comentario = c.texto
+    if (c.email)
+      email = c.email
+  }
   return (
-    <div>{comentario}</div>
+    <div>
+      <h4>Comentário: {comentario}</h4>
+      <h5>Escrito por: {email}</h5>
+      <hr/>
+    </div>
   )
 }
 
