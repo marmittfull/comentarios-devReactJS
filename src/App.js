@@ -3,6 +3,7 @@ import Comments from './Comments';
 import NewComment from './NewComment';
 import Login from './Login';
 import User from './User';
+import CriarConta from './CriarConta'
 
 class App extends Component {
 
@@ -11,7 +12,9 @@ class App extends Component {
     isLoading: false,
     isLogado: false,
     erroLogin: '',
-    user: ''
+    erroCadastro: '',
+    user: '',
+    telaAtual: 'login'
   }
 
   adicionarComentario = (texto) => {
@@ -36,7 +39,31 @@ class App extends Component {
       })
     }
   }
+  
+  logout = () => {
+    const { auth } = this.props
+    auth.signOut()
+  }
 
+  criarConta = async(email, senha) => {
+    const { auth } = this.props
+    this.setState({
+      erroCadastro: ''
+    })
+    try {
+      await auth.createUserWithEmailAndPassword(email, senha)
+    } catch (err) {
+      this.setState({
+        erroCadastro: err.code
+      })
+    }
+  }
+
+  alternarTela = (tela) => {
+    this.setState({
+      telaAtual: tela
+    })
+  }
   componentDidMount = () => {
     const { database, auth } = this.props
     this.setState({ isLoading: true });
@@ -64,21 +91,15 @@ class App extends Component {
       }
     })
   }
-
-  logout = () => {
-    const { auth } = this.props
-    auth.signOut()
-  }
-
   render() {
     return (
       <div>
         {this.state.isLogado && <User email={this.state.user.email} logout={this.logout} />}
         {/* New Comments */}
-        {this.state.isLogado ?
-          <NewComment adicionarComentario={this.adicionarComentario} />
-          : <Login login={this.login} erro={this.state.erroLogin} />
-        }
+        {this.state.isLogado && <NewComment adicionarComentario={this.adicionarComentario} />}
+        {!this.state.isLogado && this.state.telaAtual === 'login' && <Login login={this.login} erro={this.state.erroLogin} alternarTela={this.alternarTela} />}
+        {!this.state.isLogado && this.state.telaAtual === 'cadastro' && <CriarConta criarConta={this.criarConta} erro={this.state.erroCadastro} alternarTela={this.alternarTela} />}
+
         {/* Comments */}
         <Comments comentarios={this.state.comentarios} />
         {this.state.isLoading && <p>Carregando...</p>}

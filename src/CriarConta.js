@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Login extends Component {
+class CriarConta extends Component {
   state = {
     email: '',
     senha: ''
@@ -10,26 +10,26 @@ class Login extends Component {
       [campo]: event.target.value
     })
   }
-  login = () => {
-    this.props.login(this.state.email, this.state.senha)
+  criarConta = () => {
+    this.props.criarConta(this.state.email, this.state.senha)
   }
 
   render() {
     const erros = {
       'auth/invalid-email': 'Email inválido!',
-      'auth/wrong-password': 'Senha inválida!',
-      'auth/user-not-found': 'Usuário inexistente!'
+      'auth/weak-password': 'Senha muito fraca!',
+      'auth/email-already-in-use': 'Email já cadastrado!'
     }
     return (
       <div>
-        <h4>Login</h4>
+        <h4>Criar conta</h4>
         <input value={this.state.email} onChange={this.handleChange('email')} placeholder="Email" />
         <input value={this.state.senha} onChange={this.handleChange('senha')} placeholder="Senha" />
-        <button onClick={this.login}>Entrar</button>
-        <button onClick={() => this.props.alternarTela('cadastro')}>Não possuo uma conta!</button>
+        <button onClick={this.criarConta}>Cadastrar</button>
+        <button onClick={() => this.props.alternarTela('login')}>Já possuo uma conta!</button>
         {this.props.erro && <p>{erros[this.props.erro]}</p>}
       </div>
     )
   }
 }
-export default Login
+export default CriarConta
